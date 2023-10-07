@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <main className="min-h-screen">
+        <main className="min-h-screen flex flex-col items-center">
           <nav className="bg-slate-200 w-full h-16 flex justify-center items-center">
             <section className=" flex  items-center h-5 container gap-3">
               <FcGlobe size={50} />
