@@ -1,4 +1,6 @@
 import { Country } from "@/utils/types"
+import Image from "next/image"
+import Link from "next/link"
 
 async function fetchAllCountries(): Promise<Country[]> {
   const response = await fetch("https://restcountries.com/v3.1/all")
@@ -10,9 +12,22 @@ export default async function Home() {
   const countries = await fetchAllCountries()
 
   return (
-    <section className="w-full flex container">
+    <section className="grid grid-cols-5 w-full container gap-2 mt-16 rounded-xl">
       {countries.map((country: Country) => (
-        <h1 key={country.name.common}>{country.name.common}</h1>
+        <Link key={country.name.common}href={`/pais/${country.name.common}`}>
+          <article key={country.name.common} 
+          className="h-64 min-w-full p-2 bg-slate-100 border-2 rounded-xl hover:border-sky-500 transition-all hover:shadow-lg">
+          <div className="relative w-full h-40 p-2 overflow-hidden rounded-xl">
+            <Image 
+              src={country.flags.svg} 
+              alt={country.flags.alt} 
+              fill
+              className="object-cover"
+              />
+          </div>
+          <h1 className="font-bold text-xl text-center mt-1">{country.translations.por.common}</h1>
+        </article>
+        </Link>
       ))}
     </section>
   )

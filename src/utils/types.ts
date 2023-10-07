@@ -1,6 +1,17 @@
 export type Country = {
-  map(arg0: (item: any) => import("react").JSX.Element): import("react").ReactNode;
   name: {
     common: string;
+  }
+  
+  translations: {
+    por: {
+      common: string
+    }
+  };
+
+  flags: {
+    svg: string;
+    png: string;
+    alt: string;
   }
 }
