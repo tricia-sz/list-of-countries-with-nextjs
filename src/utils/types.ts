@@ -1,6 +1,7 @@
 export type Country = {
   name: {
     common: string;
+    official: string
   }
   
   translations: {
@@ -13,5 +14,14 @@ export type Country = {
     svg: string;
     png: string;
     alt: string;
-  }
+  };
+  
+  capital: string;
+  region: string;
+  subregion: string;
+  population: any;
+
+  languages: {
+    key: any | undefined
+    },
 }
