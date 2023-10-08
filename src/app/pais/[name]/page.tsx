@@ -52,7 +52,7 @@ export default async function CountryPage(
   const formatter = Intl.NumberFormat("en", {notation: "compact"})
 
   return(
-    <section className="flex flex-col container">
+    <section className="grid  flex-col container">
       <h1 className="text-5xl font-bold text-center text-gray-800 my-16">
         {country?.translations.por.common}
       </h1>
@@ -101,19 +101,24 @@ export default async function CountryPage(
                 </span>
               ))}
             </h2>
-          )}
+          )}j
         </section>
-        <div className="relative h-auto w-96 shadow-md">
-          <Image  fill className="object-cover" src={country?.flags?.svg} alt={country?.flags?.alt}/>
+        <div className="relative my-4 md:h-auto sm- w-96 shadow-md md:order-last order-first ">
+          <Image  
+            src={country?.flags?.svg} 
+            fill 
+            className="object-cover" 
+            alt={country?.flags?.alt}/>
         </div>
       </article>
 
       <h3 className="mt-12 text-2xl font-semibold text-slate-800">
         Países que fazem fronteira
       </h3>
-      <div className="grid grid-cols-5 w-full gap-3 mt-3">
+      <div className="grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-3 mt-10">
         {
           borderCountries?.map((border) => (
+            // eslint-disable-next-line react/jsx-key
             <CountryCard  {...border} />
           ))
         }

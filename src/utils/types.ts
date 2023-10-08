@@ -19,7 +19,7 @@ export type Country = {
   capital: string;
   region: string;
   subregion?: string;
-  population: string;
+  population?: number;
   borders?: string[]
   cca3: string
 

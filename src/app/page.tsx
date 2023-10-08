@@ -12,7 +12,9 @@ export default async function Home() {
   const countries = await fetchAllCountries()
 
   return (
-    <section className="grid grid-cols-5 w-full container gap-2 mt-16 rounded-xl">
+    // RESPONSIVE: "grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 sm:grid-cols-2"
+    <section className="
+      grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 sm:grid-cols-2 w-full container gap-2 mt-16 rounded-xl">
       {countries.map((country) => (
         <CountryCard 
           key={country.name.common}
