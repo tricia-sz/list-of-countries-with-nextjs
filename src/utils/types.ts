@@ -10,7 +10,7 @@ export type Country = {
     }
   };
 
-  flags: {
+  flags?: {
     svg: string;
     png: string;
     alt: string;
@@ -18,10 +18,10 @@ export type Country = {
   
   capital: string;
   region: string;
-  subregion: string;
+  subregion?: string;
   population: any;
 
-  languages: {
-    key: any | undefined
-    },
+  languages?: {
+    [key: string ]: string;
+  }   
 }
