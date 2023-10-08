@@ -1,33 +1,33 @@
-import './globals.css'
-import type { Metadata } from 'next'
-import { Nunito_Sans } from 'next/font/google'
+import "./globals.css";
+import { Nunito_Sans } from "next/font/google";
+import Image from "next/image";
 import {FcGlobe} from 'react-icons/fc'
 
-const nunito = Nunito_Sans({ subsets: ['latin'] })
+const nunitoSans = Nunito_Sans({ subsets: ["latin"] });
 
-export const metadata: Metadata = {
-  title: 'Lista de Países',
-  description: 'Lista de países utilizando a API REST Countries',
-}
+export const metadata = {
+  title: "Lista de países",
+  description: "Uma lista de países criada com o Next 13",
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={nunito.className}>
-        <main className="min-h-screen flex flex-col items-center">
-          <nav className="bg-slate-200 w-full h-16 flex justify-center items-center">
-            <section className=" flex  items-center h-5 container gap-3">
-              <FcGlobe size={50} />
-              <h1 className="font-bold text-2xl">Lista de Países</h1>
+      <body className={nunitoSans.className}>
+        <main className="bg-gray-100 min-h-screen flex flex-col items-center">
+          <nav className="w-full bg-slate-300 h-16 flex items-center justify-center">
+            <section className="container flex items-center gap-3">
+            <FcGlobe size={50} />
+              <h1 className="font-bold text-2xl">Lista de países</h1>
             </section>
           </nav>
           {children}
         </main>
       </body>
     </html>
-  )
+  );
 }

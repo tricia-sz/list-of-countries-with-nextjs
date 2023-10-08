@@ -1,29 +1,52 @@
-import CountryCard from "@/components/CountryCard"
-import { Country } from "@/utils/types"
+import CountryCard from "@/components/CountryCard";
 
+export type Country = {
+  name: {
+    common: string;
+  };
 
-async function fetchAllCountries(): Promise<Country[]> {
-  const response = await fetch("https://restcountries.com/v3.1/all")
+  translations: {
+    por: {
+      common: string;
+    };
+  };
 
-  return response.json()
+  flags: {
+    svg: string;
+    alt: string;
+  };
+
+  capital: string;
+  region: string;
+  subregion: string;
+  population: number;
+  languages?: {
+    [key: string]: string;
+  };
+
+  borders?: string[];
+  cca3: string;
+};
+
+async function getCountries(): Promise<Country[]> {
+  const response = await fetch("https://restcountries.com/v3.1/all");
+  return response.json();
 }
 
 export default async function Home() {
-  const countries = await fetchAllCountries()
+  const countries = await getCountries();
 
   return (
-    // RESPONSIVE: "grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 sm:grid-cols-2"
-    <section className="
-      grid lg:grid-cols-5 md:grid-cols-3 grid-cols-1 sm:grid-cols-2 w-full container gap-2 mt-16 rounded-xl">
+    <section className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 w-full container gap-2 mt-16 ">
       {countries.map((country) => (
-        <CountryCard 
+        <CountryCard
           key={country.name.common}
-          name={country.name.common} 
-          ptName={country.translations.por.common} 
-          flag={country?.flags?.svg}
-          alt={country.flags?.alt}
+          name={country.name.common}
+          ptName={country.translations.por.common}
+          flag={country.flags.svg}
+          flagAlt={country.flags.alt}
         />
       ))}
     </section>
-  )
+  );
 }
