@@ -1,26 +1,53 @@
+import CountryCard from "@/components/CountryCard";
 import { Country } from "@/utils/types";
 import Image from "next/image";
 import Link from "next/link";
 import { AiOutlineBackward } from "react-icons/ai";
 import { FcConferenceCall, FcFactoryBreakdown, FcGlobe, FcLandscape, FcSms } from "react-icons/fc";
 
-async function getCountryByName(name: string): Promise<Country | null> {
-  const response = await fetch(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
+// async function getCountryByName(name: string): Promise<Country | null> {
+//   const response = await fetch(`https://restcountries.com/v3.1/name/${name}?fullText=true`);
 
-  const data = await response.json();
+//   const data = await response.json();
 
-  if (Array.isArray(data) && data.length > 0) {
-    return data[0];
-  } else {
-    return null; // Retorna null se não houver país encontrado
-  }
+//   if (Array.isArray(data) && data.length > 0) {
+//     return data[0];
+//   } else {
+//     return null; // Retorna null se não houver país encontrado
+//   }
 
+// }
+
+async function getCountryByName(name: string): Promise<Country> {
+  const response = await fetch(`https://restcountries.com/v3.1/all`);
+  const countries:Country[] = await response.json();
+
+  return countries.find((country: Country) => country.name.common === name)!;
+}
+
+async function getCountryBordersByName(name: string) {
+  const response = await fetch(`https://restcountries.com/v3.1/all`);
+  const countries:Country[] = await response.json();
+
+  const country = countries.find((country: Country) => country.name.common === name)!;
+
+  return country.borders?.map((border) => {
+    const borderCountry = countries.find((country) => (
+      country.cca3 === border)!)
+    return {
+      name: borderCountry?.name.common,
+      ptName: borderCountry?.translations.por.common,
+      flag: borderCountry?.flags?.svg,
+      flagAlt: borderCountry?.flags?.alt
+    }
+  });
 }
 
 export default async function CountryPage(
   {params: {name}}: {params: {name: string}}
   ) {
   const country = await getCountryByName(name)
+  const borderCountries = await getCountryBordersByName(decodeURI(name))
 
   const formatter = Intl.NumberFormat("en", {notation: "compact"})
 
@@ -80,6 +107,18 @@ export default async function CountryPage(
           <Image  fill className="object-cover" src={country?.flags?.svg} alt={country?.flags?.alt}/>
         </div>
       </article>
+
+      <h3 className="mt-12 text-2xl font-semibold text-slate-800">
+        Países que fazem fronteira
+      </h3>
+      <div className="grid grid-cols-5 w-full gap-3 mt-3">
+        {
+          borderCountries?.map((border) => (
+            <CountryCard  {...border} />
+          ))
+        }
+      </div>
     </section>
   )
 }
+

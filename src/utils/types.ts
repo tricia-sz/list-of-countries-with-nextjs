@@ -11,15 +11,17 @@ export type Country = {
   };
 
   flags?: {
-    svg: string;
+    svg?: any;
     png: string;
-    alt: string;
+    alt?: string;
   };
   
   capital: string;
   region: string;
   subregion?: string;
-  population: any;
+  population: string;
+  borders?: string[]
+  cca3: string
 
   languages?: {
     [key: string ]: string;
